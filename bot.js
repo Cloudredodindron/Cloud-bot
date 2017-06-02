@@ -39,9 +39,9 @@
     if (msg.channel.type !== 'dm' && (config.channel !== msg.channel.id || msg.author.id === client.user.id)) return
 
     if (msg.content === 'hello') {
-      msg.channel.sendMessage('Yeepeeee ! Enfin quelqu\'un qui s\'intéresse à moi ! ' + 'Je connais les commandes weather + ville || forecast + numéro + ville || help, qui t\'aidera à utiliser forecast')
+      msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather*') !== null) {
-      city = msg.content.substring(6, msg.content.length)
+      city = msg.content.substring(8, msg.content.length)
       msg.channel.sendMessage(city + ' ')
       restClient.getPromise('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
       .catch((error) => {
@@ -51,13 +51,13 @@
         msg.channel.sendMessage('Menu Weather')
         temperature = res.data.main.temp
         if (temperature <= 15) {
-          msg.channel.sendMessage('Pense à ton petit pull ! la temperature est de ' + temperature + ' degrés !')
+          msg.channel.sendMessage('La temperature est de ' + temperature + ' degrés !')
         } else {
-          msg.channel.sendMessage('Tu peux enlever ta coquille, la température est de ' + temperature + ' degrés !')
+          msg.channel.sendMessage('La température est de ' + temperature + ' degrés !')
         }
-        msg.channel.sendMessage('La pression est de ' + res.data.main.pressure + ' hpa. Cette pression, elle n\'est pas potable !')
-        msg.channel.sendMessage('L\'humidité est de ' + res.data.main.humidity + '%. C\'est l\'idéal pour sortir les marmots et aller à la plage!')
-        msg.channel.sendMessage('Le vent va à ' + res.data.wind.speed + ' km/h. On approche du mur du son!')
+        msg.channel.sendMessage('La pression est de ' + res.data.main.pressure + ' hpa.')
+        msg.channel.sendMessage('L\'humidité est de ' + res.data.main.humidity + '%.')
+        msg.channel.sendMessage('Le vent va à ' + res.data.wind.speed + ' km/h.')
         msg.channel.sendMessage('En bref... ' + res.data.weather[0].description)
         idMeteo = res.data.weather[0].id
         meteo(idMeteo)
@@ -81,8 +81,8 @@
       if (hour.match(/[0-7]/) === null) {
         msg.channel.sendMessage('Il faut mettre une heure entre 0 et 7 rappelle-toi, tu ne l\'as pas mise ! Docteur Zoidberg à ton service !help')
       }
-      city = msg.content.substring(12, msg.content.length)
-      msg.channel.sendMessage('Alors alors... pour la ville de ' + city + 'laisse-moi te dire la météo...')
+      city = msg.content.substring(8, msg.content.length)
+      msg.channel.sendMessage('Ville de ' + city )
       hour = parseFloat(hour)
       restClient.getPromise('http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&lang=fr&APPID=http://api.openweathermap.org/data/2.5/forecast?q=Paris&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
       .catch((error) => {
