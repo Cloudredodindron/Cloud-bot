@@ -21,7 +21,7 @@ client.on('message', msg => {
   if (msg.content.match(/!translate.*/)) {
     var msgtranslate = msg.content
     var langue = msg.content.substring(11, 13)
-    translate.translate(msgtranslate.substring(13), 'en', function (err, translation) {
+    translate.translate(msgtranslate.substring(13), langue, function (err, translation) {
       if (!err) {
         msg.channel.sendMessage(translation)
       } else {
