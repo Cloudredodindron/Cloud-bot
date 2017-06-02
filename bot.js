@@ -21,16 +21,23 @@ client.on('message', msg => {
   msgtweet = msgtweet.substring(7)
   if (msg.content === '!tweet ' + msgtweet) {
     if (msgtweet.length < 141) {
-    var tweet = {
-      status: msgtweet
+      var tweet = {
+        status: msgtweet
+      }
+      var twitter = new Twitter(config.twitter)
+      twitter.post('statuses/update', tweet)
+      msg.channel.send('Tweet lancé !')
+    } else {
+      msg.channel.send('Tweet trop long')
     }
-    var twitter = new Twitter(config.twitter)
-    twitter.post('statuses/update', tweet)
-    msg.channel.send("Tweet lancé !")
   }
-  else {
-    msg.channel.send('Tweet trop long')
-  }
+  if (msg.content === '#EmmanuelMacron') {
+    var twitterstream = new Twitter(config.twitter)
+    twitterstream.stream('statuses/filter', {track: '#Cloud-bot-redo'}, function (stream) {
+      stream.on('data', function (tweet) {
+        msg.channel.send('On te mentionne!')
+      })
+    })
   }
 })
 
