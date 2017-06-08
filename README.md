@@ -6,3 +6,19 @@
  - Marc Resenterra	
  - Mathieu Rebolledo	 
  - Boris Viresolvy.
+
+
+# Commandes à utiliser pour tester notre bot
+# Google Trad : 
+# Youtube : 
+# Twitter : 
+# Weather :
+# Spotify :
+# Bonus : 
+
+
+# URL de notre Web App Azure 
+http://botcloudredon.azurewebsites.net
+
+
+
