@@ -19,6 +19,7 @@
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
+  
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`)
   })
@@ -36,7 +37,6 @@
       msg.channel.sendMessage(result)
     })
   }
-})
 
     if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
