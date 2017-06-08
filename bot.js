@@ -4,13 +4,16 @@
   var restClient = require('node-rest-client-promise').Client()
   var city = ''
   var temperature
-  var idMeteo
+  var pressure
+  var humidity
+  var speed
+  var description
+  var numlist
+  var datehour
+  var day
+  var month 
   var hour
-  var heureDetectee
-  var Jour
-  var Mois
-  var Iso
-  var Time
+  var iso
 
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`)
@@ -44,9 +47,7 @@
         console.log(res.response.statusCode)
       })
 
-
     } else if (msg.content.match('!forecast') !== null) {
-      
       city = msg.content.substring(9, msg.content.length)
       restClient.getPromise('http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
       .catch((error) => {
@@ -54,56 +55,19 @@
       })
 
       .then((res) => {
-        msg.channel.sendMessage('Prévision sur 5 jours à '+ city)
-        num_list=0
-        for (num_list; num_list <= 35; num_list = num_list + 1 ) { 
-          temp_list = res.data.list[num_list].main.temp
-          msg.channel.sendMessage('La temperature est de ' + temp_list + ' degrés.')
+        msg.channel.sendMessage('Prévision sur 5 jours à '+ city + ' :')
+        numlist=0
+        for (numlist; numlist <= 40; numlist = numlist + 8 ) { 
+          templist = res.data.list[numlist].main.temp
+          datehour=res.data.list[numlist].dt_txt
+          iso = new Date(res.data.list[numlist].dt_txt)
+          day = iso.getDate()
+          month = iso.getMonth()+1
+          hour = iso.getHours()
+          //msg.channel.sendMessage('DATE ET HEURE :' + datehour)//
+          msg.channel.sendMessage('La temperature est de ' + templist + ' degrés '+'le ' + day +'/' + month + ' à ' + hour + 'h')
         }
-        
-
-      
       })
     }
   })
   client.login(config.token)
-
-
-
-
-    
- /* } else if (msg.content.match('!forecast') !== null) {
-      hour = msg.content.substring(10, 11)
-      if (hour.match(/[0-7]/) === null) {
-        msg.channel.sendMessage('Mettez un créneau horaire entre 0 et 7, 0 : instant réel, 1 : +3h, 2:+6h et ainsi de suite')
-      }
-      msg.channel.sendMessage(' créneau horaire choisi : ' + hour )
-      city = msg.content.substring(8, msg.content.length)
-      msg.channel.sendMessage('Ville de ' + city )
-      hour = parseFloat(hour)
-      restClient.getPromise('http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
-      .catch((error) => {
-        throw error
-      })
-      .then((res) => {
-        console.log(res)
-        // msg.channel.sendMessage(Date.now())
-        // msg.channel.sendMessage(res.data.list[0].dt)
-        // msg.channel.sendMessage(res.data.list[0].dt_txt)
-        // msg.channel.sendMessage(res.data.list[0].dt_txt.substring(11, 13))
-
-        //msg.channel.sendMessage(hour + ' ' + res.data.list.length)//
-        for (var heure = hour; heure <= res.data.list.length; heure = heure + 8) {
-          Iso = new Date(res.data.list[heure].dt_txt)
-          Jour = Iso.getDate()
-          Mois = Iso.getMonth()
-          Time = Iso.getHours()
-          msg.channel.sendMessage('Le ' + Jour + '/' + Mois + ' à ' + Time + 'h' + ' il fait ' + res.data.list[heure].main.temp + ' degrés ! ')
-          idMeteo = res.data.list[heure].weather[0].id
-          
-        }
-      })
-  
-    }
-  })
-  client.login(config.token)*/
