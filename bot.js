@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 var Twitter = require('twitter')
 const config = require('./config.js')
 const client = new Discord.Client()
-
+var twitter = new Twitter(config.twitter)
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
@@ -24,21 +24,22 @@ client.on('message', msg => {
       var tweet = {
         status: msgtweet
       }
-      var twitter = new Twitter(config.twitter)
       twitter.post('statuses/update', tweet)
-      msg.channel.send('Tweet lancé !')
+      msg.channel.send('Tweet lancé ! : ' + msgtweet)
     } else {
       msg.channel.send('Tweet trop long')
     }
   }
-  if (msg.content === '#EmmanuelMacron') {
-    var twitterstream = new Twitter(config.twitter)
-    twitterstream.stream('statuses/filter', {track: '#Cloud-bot-redo'}, function (stream) {
-      stream.on('data', function (tweet) {
-        msg.channel.send('On te mentionne!')
-      })
+  twitter.stream('statuses/filter', {track: '#chloe'}, function (stream) {
+    stream.on('data', function (tweet) {
+      console.log(tweet.text)
+      msg.channel.sendMessage(" On t'a taggué dans ce tweet : ")
     })
-  }
+
+    stream.on('error', function (error) {
+      console.log(error)
+    })
+  })
 })
 
 client.login(config.token)
