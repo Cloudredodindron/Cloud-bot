@@ -114,10 +114,10 @@
         msg.channel.send('Tweet trop long')
       }
     }
-    twitter.stream('statuses/filter', {track: '#chloe'}, function (stream) {
+    twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) {
       stream.on('data', function (tweet) {
         console.log(tweet.text)
-        msg.channel.sendMessage(" On t'a taggué dans ce tweet : ")
+        msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)
       })
 
       stream.on('error', function (error) {
