@@ -26,6 +26,7 @@
   })
   client.on('message', msg => {
     if (msg.channel.type !== 'dm' && (config.channel !== msg.channel.id || msg.author.id === client.user.id)) return
+    // TRANSLATE
     if (msg.content.includes('!translate')) {
       var messageContent = msg.content.split('!translate')[1].split('!opt')
       var toTranslate = messageContent[0]
@@ -36,6 +37,7 @@
         }
         msg.channel.sendMessage(result)
       })
+    // YOUTUBE
     } else if (msg.content.match('!youtube') !== null) {
       message = msg.content.substring(8, msg.content.length)
       msg.channel.sendMessage('Recherche pour' + message + ' :')
@@ -59,7 +61,8 @@
         }
         console.log(res.response.statusCode)
       })
-    } else if (msg.content.match('!weather') !== null) {
+    // WEATHER
+    } else if (msg.content.match('!weather') !== null) { // Fonctionnalité weather
       city = msg.content.substring(8, msg.content.length)
       restClient.getPromise('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
       .catch((error) => {
@@ -79,7 +82,7 @@
         msg.channel.sendMessage('Description : ' + description)
         console.log(res.response.statusCode)
       })
-    } else if (msg.content.match('!forecast') !== null) {
+    } else if (msg.content.match('!forecast') !== null) { // Fonctionnalité forecast
       city = msg.content.substring(9, msg.content.length)
       restClient.getPromise('http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&lang=fr&APPID=f2a0bbeb2be940aadb681a04cb266859')
       .catch((error) => {
@@ -97,7 +100,8 @@
           msg.channel.sendMessage('La temperature est de ' + templist + ' degrés ' + 'le ' + day + '/' + month + ' à ' + hour + 'h')
         }
       })
-    } else if (msg.content.match(/!pokemon.*/)) {
+    // POKEMON
+    } else if (msg.content.match(/!pokemon.*/)) { // Fonctionnalité transformation du bot en un pokemon donné
       var pokesearch = msg.content.substring(9)
       var urlpokemon = 'http://pokeapi.co/api/v2/pokemon/' + pokesearch
       httpClient.getPromise(urlpokemon, function (result, error) {
@@ -108,15 +112,16 @@
           client.user.setUsername(newnamebot)
         .then(user => console.log(`My new username is ${user.username}`))
         .catch(console.error)
-          msg.channel.sendMessage('Mon nom est : ' + JSON.stringify(result.forms[0].name, null, 2) + ', mon id est la suivante : ' + JSON.stringify(result.id, null, 2) + '. Je suis un pokemon de type ' + JSON.stringify(result.types[0].type.name, null, 2) + '. Ma taille est de : ' + JSON.stringify(result.height, null, 2) + ' pieds et je pèse ' + JSON.stringify(result.weight, null, 2) + ' pounds!')
+          msg.channel.sendMessage('Bonjour, je me nomme ' + JSON.stringify(result.forms[0].name, null, 2) + '! Je suis un pokemon de type ' + JSON.stringify(result.types[0].type.name, null, 2) + '. Mon id est : ' + JSON.stringify(result.id, null, 2) + '. Je pèse ' + JSON.stringify(result.weight, null, 2) + ' pounds!' + ' et je mesure : ' + JSON.stringify(result.height, null, 2) + ' pieds.')
         } else {
           console.log(error)
         }
       })
     }
+    // TWITTER
     var msgtweet = msg.content
     msgtweet = msgtweet.substring(7)
-    if (msg.content === '!tweet ' + msgtweet) {
+    if (msg.content === '!tweet ' + msgtweet) { // Fonctionnalité envoi d'un tweet
       if (msgtweet.length < 141) {
         var tweet = {
           status: msgtweet
@@ -127,7 +132,7 @@
         msg.channel.send('Tweet trop long')
       }
     }
-    twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) { // #chloe-bot = compte twitter
+    twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) { // Fonctionnalité écoute des tweets, #chloe-bot = compte twitter
       stream.on('data', function (tweet) {
         console.log(tweet.text)
         msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)

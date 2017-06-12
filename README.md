@@ -8,7 +8,9 @@
  - Boris Viresolvy.
 
 #Communication Bot
-Il faudra s'adresser à chloe-bot pour tester les différentes fonctionnalités demandées.
+Il faudra s'adresser à chloe-bot pour tester les différentes fonctionnalités demandée.
+--> Bot renommé en "pikachu" grâce à l'exercice Pokemon. 
+#8922 : id du bot 
 
 # URL de notre Web App Azure 
 http://botcloudredon.azurewebsites.net
@@ -49,8 +51,9 @@ ex : !spotify rihanna
 --> Nous avons un problème de connexion avec le token de l'API, ne va donc pas fonctionner dans le discord...
 
 # Pokemon 
-Commande : !pokemon nomDuPokemon
-ex : !pokemon pikachu
+Fonctionnalité "transformation" du bot en un pokemon donné : "!pokemon pikachu"
+Commande : !pokemon pikachu
+
 
 
 
