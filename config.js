@@ -9,4 +9,3 @@ module.exports = {
   translate: {
     API_KEY: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   }
-}
