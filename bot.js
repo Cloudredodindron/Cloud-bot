@@ -218,5 +218,5 @@
         console.log(error)
       })
     })
-  })
+  }
   client.login(config.token)
