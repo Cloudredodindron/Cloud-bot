@@ -118,7 +118,7 @@
         }
       })
     // SPOTIFY
-    } else if (msg.content.startsWith('!spotify ')) { // 1
+    } else if (msg.content.startsWith('!spotify ')) {
       var SpotifyWebApi = require('spotify-web-api-node')
     // Create the api object with the credentials
       var spotifyApi = new SpotifyWebApi({
@@ -129,7 +129,7 @@
       console.log(msgRecherche)
     // Retrieve an access token.
       spotifyApi.clientCredentialsGrant()
-    .then(function (data) { // 2
+    .then(function (data) {
       // Save the access token so that it's used in future calls
       spotifyApi.setAccessToken(data.body['BQC-VqUiiy4FRWQqNWr8ElMkNeioY9Jq1AamYDn7NyO208Taf7ojTtbGVB-6dMd3Y-SHM0OSmuIxWshL27mO90xL4XrduZjeN76kej5QyiY_1bEK8aJt68COFVlWiU7DZXYDDnE1yRxEbmA'])
       if (msgRecherche[0] !== '!artist' && msgRecherche[0] !== '!album' && msgRecherche[0] !== '!track') {

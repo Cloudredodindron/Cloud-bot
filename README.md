@@ -32,7 +32,7 @@ ex : !tweet coucou
 Fonctionnalité écoute des tweets qui citent le compte Twitter :
 Compte Twitter à tester : #chloe-bot
 Commande : !tweet #chloe-bot monMessage
-ex : !tweet #chloe-bot coucou
+ex : !tweet #chloe-bot projet1
 
 # Weather :
 Fonctionnalité weather : 
@@ -45,15 +45,16 @@ Commande : !forecast nomDeLaVille
 ex : !forecast Paris
 --> Ne renverra simplement que les températures pour les 5 jours prochains
 
-# Spotify :
-Commande : !spotify maRecherche
-ex : !spotify rihanna
---> Nous avons un problème de connexion avec le token de l'API, ne va donc pas fonctionner dans le discord...
-
 # Pokemon 
 Fonctionnalité "transformation" du bot en un pokemon donné : "!pokemon pikachu"
 Commande : !pokemon pikachu
 
+# Spotify :
+Commande : !spotify maRecherche
+ex : !spotify rihanna
+--> Nous avons un problème de connexion avec le token de l'API, ne va donc pas fonctionner dans le discord,
+mais le code est dans bot.js. Si vous lancez la commande de spotify, il se peut qu'il faut relancer notre Web App Azure 
+pour éxécuter d'autres commandes.
 
 
 
