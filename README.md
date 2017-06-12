@@ -27,7 +27,7 @@ ex : !youtube nirvana
 # Twitter : 
 Fonctionnalité envoi d'un tweet :
 Commande : !tweet monTweet
-ex : !tweet coucou
+ex : !tweet projet1
 
 Fonctionnalité écoute des tweets qui citent le compte Twitter :
 Compte Twitter à tester : #chloe-bot
