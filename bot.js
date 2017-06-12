@@ -101,4 +101,3 @@
     }
   })
   client.login(config.token)
-
