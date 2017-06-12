@@ -34,8 +34,7 @@
         }
         msg.channel.sendMessage(result)
       })
-
-    }if (msg.content.match('!youtube') !== null) {
+    } if (msg.content.match('!youtube') !== null) {
       message = msg.content.substring(8, msg.content.length)
       msg.channel.sendMessage('Recherche pour' + message + ' :')
       restClient.getPromise('https://www.googleapis.com/youtube/v3/search?q=' + message + '&maxResults=3&part=snippet&key=AIzaSyDXNwjxn5Mocc2_AhT25bl5ixvoE91NAhU')
@@ -58,8 +57,7 @@
         }
         console.log(res.response.statusCode)
       })
-   
-  }if (msg.content === 'hello') {
+    } if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather') !== null) {
       city = msg.content.substring(8, msg.content.length)
