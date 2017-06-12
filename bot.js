@@ -57,7 +57,8 @@
         }
         console.log(res.response.statusCode)
       })
-    } if (msg.content === 'hello') {
+    }
+    if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather') !== null) {
       city = msg.content.substring(8, msg.content.length)
