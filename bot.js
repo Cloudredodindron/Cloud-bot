@@ -15,10 +15,10 @@
   var month
   var hour
   var iso
+  var message = ''
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
-
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`)
   })
@@ -33,6 +33,29 @@
           return
         }
         msg.channel.sendMessage(result)
+      })
+    } if (msg.content.match('!youtube') !== null) {
+      message = msg.content.substring(8, msg.content.length)
+      msg.channel.sendMessage('Recherche pour' + message + ' :')
+      restClient.getPromise('https://www.googleapis.com/youtube/v3/search?q=' + message + '&maxResults=3&part=snippet&key=AIzaSyDXNwjxn5Mocc2_AhT25bl5ixvoE91NAhU')
+      .catch((error) => {
+        throw error
+      })
+      .then((res) => {
+        console.log(res.data.items)
+        for (var i = 0; i < res.data.items.length; i++) {
+          var num = res.data.items[i]
+          if (num.id.kind === 'youtube#channel') {
+            var channelId = num.id.channelId
+            var url1 = 'https://www.youtube.com/channel/' + channelId
+            msg.channel.sendMessage(url1)
+          } else if (num.id.kind === 'youtube#video') {
+            var videoId = num.id.videoId
+            var url2 = 'https://www.youtube.com/watch?v=' + videoId
+            msg.channel.sendMessage(url2)
+          }
+        }
+        console.log(res.response.statusCode)
       })
     }
     if (msg.content === 'hello') {
