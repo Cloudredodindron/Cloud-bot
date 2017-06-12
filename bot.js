@@ -194,29 +194,30 @@
           console.log(error)
         }
       })
-    }
-    var msgtweet = msg.content
-    msgtweet = msgtweet.substring(7)
-    if (msg.content === '!tweet ' + msgtweet) {
-      if (msgtweet.length < 141) {
-        var tweet = {
-          status: msgtweet
-        }
-        twitter.post('statuses/update', tweet)
-        msg.channel.send('Tweet lancé ! : ' + msgtweet)
-      } else {
-        msg.channel.send('Tweet trop long')
       }
-    }
-    twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) {
-      stream.on('data', function (tweet) {
-        console.log(tweet.text)
-        msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)
-      })
+      var msgtweet = msg.content
+      msgtweet = msgtweet.substring(7)
+      if (msg.content === '!tweet ' + msgtweet) {
+        if (msgtweet.length < 141) {
+          var tweet = {
+            status: msgtweet
+          }
+          twitter.post('statuses/update', tweet)
+          msg.channel.send('Tweet lancé ! : ' + msgtweet)
+        } else {
+          msg.channel.send('Tweet trop long')
+        }
+      }
+      twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) {
+        stream.on('data', function (tweet) {
+          console.log(tweet.text)
+          msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)
+        })
 
-      stream.on('error', function (error) {
-        console.log(error)
+        stream.on('error', function (error) {
+          console.log(error)
+        })
       })
-    })
-  }
+    }
+  })
   client.login(config.token)
