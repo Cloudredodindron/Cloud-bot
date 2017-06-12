@@ -100,5 +100,5 @@
       })
     }
   })
-  client.login(config.token) /never
+  client.login(config.token)
 
