@@ -60,6 +60,7 @@
         console.log(res.response.statusCode)
       })
     }
+
     if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather') !== null) {
@@ -101,6 +102,81 @@
         }
       })
     }
+    if (msg.content.startsWith('!spotify ')) {
+      var SpotifyWebApi = require('spotify-web-api-node')
+    // Create the api object with the credentials
+      var spotifyApi = new SpotifyWebApi({
+        clientId: '7d618a54d6e44ae1934e77160031d192',
+        clientSecret: '577a78ca518c447c879bddda7b47d883'
+      })
+      var msgRecherche = msg.content.split(' ').slice(1)
+      console.log(msgRecherche)
+
+    // Retrieve an access token.
+      spotifyApi.clientCredentialsGrant()
+    .then(function (data) {
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body[''])
+
+      if (msgRecherche[0] !== '!artist' && msgRecherche[0] !== '!album' && msgRecherche[0] !== '!track') {
+        spotifyApi.search(msgRecherche.join(' '), ['artist', 'track', 'album'], {limit: 1}, function (err, data) {
+          if (err) {
+            console.log('Error occurred: ' + err)
+          } else {
+            console.log(data)
+            msg.channel.send('The track : ' + data.body.tracks.items[0].name)
+            msg.channel.send(data.body.tracks.items[0].external_urls.spotify)
+
+            msg.channel.send('The artist : ' + data.body.artists.items[0].name)
+            msg.channel.send(data.body.artists.items[0].external_urls.spotify)
+
+            msg.channel.send('The album : ' + data.body.albums.items[0].name)
+            msg.channel.send(data.body.albums.items[0].external_urls.spotify)
+          }
+        }, function (err) {
+          console.log('Something went wrong when retrieving an access token', err)
+        })
+      }
+      if (msgRecherche[0] === '!track') {
+        spotifyApi.search(msgRecherche.join(' ').substring(6), ['track'], {limit: 1}, function (err, data) {
+          if (err) {
+            console.log('Error occurred: ' + err)
+          } else {
+            console.log(data)
+            msg.channel.send('The track : ' + data.body.tracks.items[0].name)
+            msg.channel.send(data.body.tracks.items[0].external_urls.spotify)
+          }
+        }, function (err) {
+          console.log('Something went wrong when retrieving an access token', err)
+        })
+      }
+      if (msgRecherche[0] === '!artist') {
+        spotifyApi.search(msgRecherche.join(' ').substring(7), ['artist'], {limit: 1}, function (err, data) {
+          if (err) {
+            console.log('Error occurred: ' + err)
+          } else {
+            console.log(data)
+            msg.channel.send('The artist : ' + data.body.artists.items[0].name)
+            msg.channel.send(data.body.artists.items[0].external_urls.spotify)
+          }
+        }, function (err) {
+          console.log('Something went wrong when retrieving an access token', err)
+        })
+      }
+      if (msgRecherche[0] === '!album') {
+        spotifyApi.search(msgRecherche.join(' ').substring(6), ['album'], {limit: 1}, function (err, data) {
+          if (err) {
+            console.log('Error occurred: ' + err)
+          } else {
+            console.log(data)
+            msg.channel.send('The album : ' + data.body.albums.items[0].name)
+            msg.channel.send(data.body.albums.items[0].external_urls.spotify)
+          }
+        }, function (err) {
+          console.log('Something went wrong when retrieving an access token', err)
+        })
+      }
+    })
     if (msg.content.match(/!pokemon.*/)) {
       var pokesearch = msg.content.substring(9)
       var urlpokemon = 'http://pokeapi.co/api/v2/pokemon/' + pokesearch
@@ -118,29 +194,30 @@
           console.log(error)
         }
       })
-    }
-    var msgtweet = msg.content
-    msgtweet = msgtweet.substring(7)
-    if (msg.content === '!tweet ' + msgtweet) {
-      if (msgtweet.length < 141) {
-        var tweet = {
-          status: msgtweet
-        }
-        twitter.post('statuses/update', tweet)
-        msg.channel.send('Tweet lancé ! : ' + msgtweet)
-      } else {
-        msg.channel.send('Tweet trop long')
       }
-    }
-    twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) {
-      stream.on('data', function (tweet) {
-        console.log(tweet.text)
-        msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)
-      })
+      var msgtweet = msg.content
+      msgtweet = msgtweet.substring(7)
+      if (msg.content === '!tweet ' + msgtweet) {
+        if (msgtweet.length < 141) {
+          var tweet = {
+            status: msgtweet
+          }
+          twitter.post('statuses/update', tweet)
+          msg.channel.send('Tweet lancé ! : ' + msgtweet)
+        } else {
+          msg.channel.send('Tweet trop long')
+        }
+      }
+      twitter.stream('statuses/filter', {track: '#chloe-bot'}, function (stream) {
+        stream.on('data', function (tweet) {
+          console.log(tweet.text)
+          msg.channel.sendMessage(" On t'a taggué dans ce tweet :  " + tweet.text)
+        })
 
-      stream.on('error', function (error) {
-        console.log(error)
+        stream.on('error', function (error) {
+          console.log(error)
+        })
       })
-    })
+    }
   })
   client.login(config.token)
