@@ -34,6 +34,7 @@
         }
         msg.channel.sendMessage(result)
       })
+
     }if (msg.content.match('!youtube') !== null) {
       message = msg.content.substring(8, msg.content.length)
       msg.channel.sendMessage('Recherche pour' + message + ' :')
@@ -57,7 +58,8 @@
         }
         console.log(res.response.statusCode)
       })
-    }if (msg.content === 'hello') {
+   
+  }if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather') !== null) {
       city = msg.content.substring(8, msg.content.length)
