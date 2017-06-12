@@ -23,8 +23,6 @@
     "eslint-config-standard": "^10.2.1",
     "node-rest-client-promise": "^2.0.0",
     "twitter": "^1.7.0"
-    "eslint-plugin-import": "^2.3.0",
-    "node-rest-client-promise": "^2.0.0"
   },
   "devDependencies": {
     "ava": "^0.19.1",
