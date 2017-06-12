@@ -1,4 +1,3 @@
-
   const Discord = require('discord.js')
   const config = require('./config.js')
   const client = new Discord.Client()
@@ -19,6 +18,8 @@
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
+  var Twitter = require('twitter')
+  var twitter = new Twitter(config.twitter)
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`)
   })
@@ -100,5 +101,28 @@
         }
       })
     }
+    var msgtweet = msg.content
+    msgtweet = msgtweet.substring(7)
+    if (msg.content === '!tweet ' + msgtweet) {
+      if (msgtweet.length < 141) {
+        var tweet = {
+          status: msgtweet
+        }
+        twitter.post('statuses/update', tweet)
+        msg.channel.send('Tweet lancé ! : ' + msgtweet)
+      } else {
+        msg.channel.send('Tweet trop long')
+      }
+    }
+    twitter.stream('statuses/filter', {track: '#chloe'}, function (stream) {
+      stream.on('data', function (tweet) {
+        console.log(tweet.text)
+        msg.channel.sendMessage(" On t'a taggué dans ce tweet : ")
+      })
+
+      stream.on('error', function (error) {
+        console.log(error)
+      })
+    })
   })
   client.login(config.token)
