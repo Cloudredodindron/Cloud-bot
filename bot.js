@@ -110,7 +110,7 @@
         twitter.post('statuses/update', tweet)
         msg.channel.send('Tweet lancé ! : ' + msgtweet)
       } else {
-      msg.channel.send('Tweet trop long')
+        msg.channel.send('Tweet trop long')
       }
     }
     twitter.stream('statuses/filter', {track: '#chloe'}, function (stream) {
