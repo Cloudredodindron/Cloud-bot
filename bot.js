@@ -16,12 +16,12 @@
   var hour
   var iso
   var message = ''
-  var i 
+  /*var i 
   var num 
   var channelId
   var url1
   var url2
-  var videoId
+  var videoId*/
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
@@ -40,8 +40,7 @@
         }
         msg.channel.sendMessage(result)
       })
-    }
-    if (msg.content.match('!youtube') !== null) {
+    }if (msg.content.match('!youtube') !== null) {
       message = msg.content.substring(8, msg.content.length)
       msg.channel.sendMessage('Recherche pour' + message + ' :')
       restClient.getPromise('https://www.googleapis.com/youtube/v3/search?q=' + message + '&maxResults=3&part=snippet&key=AIzaSyDXNwjxn5Mocc2_AhT25bl5ixvoE91NAhU')
