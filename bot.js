@@ -99,4 +99,5 @@
       })
     }
   })
-  client.login(config.token)
+  client.login(config.token) /never
+
