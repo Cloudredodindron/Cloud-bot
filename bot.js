@@ -18,6 +18,7 @@
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
+  var Twitter = require('twitter')
   var twitter = new Twitter(config.twitter)
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`)
@@ -118,9 +119,9 @@
         msg.channel.sendMessage(" On t'a taggué dans ce tweet : ")
       })
 
-    stream.on('error', function (error) {
-      console.log(error)
+      stream.on('error', function (error) {
+        console.log(error)
+      })
     })
   })
-})
   client.login(config.token)
