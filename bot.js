@@ -23,7 +23,8 @@
     console.log(`Logged in as ${client.user.username}!`)
   })
   client.on('message', msg => {
-    if (msg.channel.type !== 'dm' && (config.channel !== msg.channel.id || msg.author.id === client.user.id)) return
+    if (msg.author.id === client.user.id || (msg.channel.type !== 'dm' && config.channel !== msg.channel.id)) return
+     // pas directmessage et (soit pas sur le channel decidé soit )
     if (msg.content.includes('!translate')) {
       var messageContent = msg.content.split('!translate')[1].split('!opt')
       var toTranslate = messageContent[0]
