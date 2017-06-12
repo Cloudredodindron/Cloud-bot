@@ -1,3 +1,4 @@
+  const httpClient = require('node-rest-client-promise').Client()
   const Discord = require('discord.js')
   const config = require('./config.js')
   const client = new Discord.Client()
@@ -25,7 +26,6 @@
   })
   client.on('message', msg => {
     if (msg.author.id === client.user.id || (msg.channel.type !== 'dm' && config.channel !== msg.channel.id)) return
-     // pas directmessage et (soit pas sur le channel decidé soit )
     if (msg.content.includes('!translate')) {
       var messageContent = msg.content.split('!translate')[1].split('!opt')
       var toTranslate = messageContent[0]
@@ -98,6 +98,24 @@
           month = iso.getMonth() + 1
           hour = iso.getHours()
           msg.channel.sendMessage('La temperature est de ' + templist + ' degrés ' + 'le ' + day + '/' + month + ' à ' + hour + 'h')
+        }
+      })
+    }
+    if (msg.content.match(/!pokemon.*/)) {
+      var pokesearch = msg.content.substring(9)
+      var urlpokemon = 'http://pokeapi.co/api/v2/pokemon/' + pokesearch
+      httpClient.getPromise(urlpokemon, function (result, error) {
+        if (result) {
+        // console.log(result)
+          var newnamebot = JSON.stringify(result.forms[0].name, null, 2).substring(1, JSON.stringify(result.forms[0].name, null, 2).length - 1)
+          var picture = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + JSON.stringify(result.id, null, 2) + '.png'
+          client.user.setAvatar(picture)
+          client.user.setUsername(newnamebot)
+        .then(user => console.log(`My new username is ${user.username}`))
+        .catch(console.error)
+          msg.channel.sendMessage('Mon nom est : ' + JSON.stringify(result.forms[0].name, null, 2) + ', mon id est la suivante : ' + JSON.stringify(result.id, null, 2) + '! Je suis un pokemon de type ' + JSON.stringify(result.types[0].type.name, null, 2) + '! Ma taille est de : ' + JSON.stringify(result.height, null, 2) + ' pieds et je pèse ' + JSON.stringify(result.weight, null, 2) + ' pounds!')
+        } else {
+          console.log(error)
         }
       })
     }
