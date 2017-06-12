@@ -16,12 +16,6 @@
   var hour
   var iso
   var message = ''
-  /*var i 
-  var num 
-  var channelId
-  var url1
-  var url2
-  var videoId*/
   var translate = require('@google-cloud/translate')({
     key: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
   })
@@ -63,8 +57,7 @@
         }
         console.log(res.response.statusCode)
       })
-    }
-    if (msg.content === 'hello') {
+    }if (msg.content === 'hello') {
       msg.channel.sendMessage('I know the weather')
     } else if (msg.content.match('!weather') !== null) {
       city = msg.content.substring(8, msg.content.length)
@@ -107,7 +100,3 @@
     }
   })
   client.login(config.token)
-
-
-
-
