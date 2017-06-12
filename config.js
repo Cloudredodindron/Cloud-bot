@@ -6,6 +6,8 @@ module.exports = {
     consumer_secret: 'Ms8AhVGbLCOcQot4YLFsokNcNnUldy7GJKzqvLaBcC2TbHkZke',
     access_token_key: '865511500277891072-tkUGYk56iTWHhoZ2XOEsHuFqXUSv13h',
     access_token_secret: 'BGF7BrsmDSohvV0QqYCrUO5CU7i9mwOFq9xhNUxSfYklP',
-  translate: {
-    API_KEY: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
+    translate: {
+      API_KEY: 'AIzaSyAsjKDAU2Yy3Qc56OR8Ydcu99DO4rFXDlk'
+    }
   }
+}
